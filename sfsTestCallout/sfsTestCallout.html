@@ -1,0 +1,71 @@
+<template>
+    <!--Data table-->
+    <div>
+        <lightning-datatable
+                key-field="id"
+                data={data}
+                columns={columns}
+                onrowselection={getSelectedRows}>
+        </lightning-datatable>
+    </div> 
+    <!--Remove Debt button-->
+    <div class="slds-m-vertical_small" >
+        <lightning-button variant="brand" label="Remove Debt" title="Primary action" onclick={removeDebtHandler} class="slds-m-left_x-small"></lightning-button>
+    </div> 
+    <!--Add Debt Button-->
+    <div class="slds-m-vertical_small" >
+        <lightning-button variant="brand" label="Add Debt" title="Primary action" onclick={addDebtHandler} class="slds-m-left_x-small"></lightning-button>
+    </div> 
+    <!--Total Amount--> 
+    <div  class="slds-m-vertical_small slds-p-vertical_small totalAmount">
+        <span class="slds-var-p-around_x-large  slds-m-vertical_medium">Total</span>
+        <span class="slds-float_right slds-p-right_large">
+            <lightning-formatted-number value={total} format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number>
+        </span>
+    </div>
+    <!--Total Rows-->
+    <div class="totalRows">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-3">
+              <span>Total Row Count: {totalRowCount}</span>
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+              <span>Check Row Count : {checkedRowCount}</span>
+            </div>
+          </div>
+    </div>
+
+    <!--Modal Popup on Add Debt Button Click-->
+    <template if:true={isModalOpen}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Enter the details about the Bank</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-input type="text" name="creditor" label="Creditor" onchange = {handleChange}></lightning-input>
+                    <lightning-input type="text" name="firstName" label="First Name"  onchange= {handleChange}></lightning-input>
+                    <lightning-input type="text" name= "lastName" label="Last Name"  onchange= {handleChange}></lightning-input>
+                    <lightning-input type="number" name= "minPay" label="Min Pay"  onchange= {handleChange} ></lightning-input>
+                    <lightning-input type="number" name="balance" label="Balance" onchange= {handleChange} ></lightning-input>
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitDetails} title="Submit">Submit</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
