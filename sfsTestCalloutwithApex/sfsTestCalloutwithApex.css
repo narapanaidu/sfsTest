@@ -1,0 +1,12 @@
+.totalAmount{
+    background-color: rgb(65, 148, 249);
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.totalRows{
+    color: black;
+    font-weight: bold;
+    font-size: 13px;
+}
